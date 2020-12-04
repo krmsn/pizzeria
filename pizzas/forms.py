@@ -1,8 +1,8 @@
 from django import forms
-from .models import Topping
+from .models import Comment
 
 class CommentForm(forms.ModelForm):
     class Meta:
-        model = Topping
+        model = Comment
         fields = ['name']
-        labels = {'name':''}
+        widgets = {'name':forms.Textarea(attrs={'cols':80})}
