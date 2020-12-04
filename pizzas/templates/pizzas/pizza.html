@@ -1,42 +1,42 @@
 {% extends "pizzas/base.html" %}
 
+{% block page_header %}
+<h3>{{ pizza }}</h3>
+{% endblock page_header %}
+
 {% block content %}
-
-<p>Pizza: {{ pizza }}</p>
-
-<ul>
-
     {% for topping in toppings %}
+    <div class="card mb-3">
+        <h4 class="card-header">
+            <p>Toppings</p>
+        </h4>
+        <div class="card-body">
+            <p>{{ topping.name|linebreaks }}</p>
+        </div>
+    </div>
 
-    <li>
-        <p>{{ topping.name|linebreaks }}</p>
 
-    </li>
-    {% empty %}
-    <li>There are no toppings for this pizza yet.</li>
-    {% endfor %}
+{% empty %}
+<p>There are no toppings for this pizza yet.</p>
+{% endfor %}
 
-</ul>
-
-<ul>
-
-    <p>Comments:</p>
+    <p>
+        <a href = "{% url 'pizzas:new_comment' pizza.id %}">Add new comment</a>
+    </p>
 
     {% for comment in comments %}
+    <div class="card mb-3">
+        <h4 class="card_header">
+            {{comment.date_added|date:'M d, Y H:i'}}
+        </h4>
+        <div class="card-body">
+            {{comment.name|linebreaks}}
+        </div>
+    </div>
 
-    <li>
-        <p>{{comment.date_added|date:'M d, Y H:i'}}</p>
-        <p>{{comment.name}}</p>
-
-    </li>
     {% empty %}
-    <li>There are no comments for this pizza yet.</li>
+    <p>There are no comments for this pizza yet.</p>
     {% endfor %}
 
-</ul>
-
-<p>
-    <a href = "{% url 'pizzas:new_comment' pizza.id %}">Add new comment</a>
-</p>
-
 {% endblock content %}
+
