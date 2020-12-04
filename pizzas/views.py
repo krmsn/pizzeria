@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Pizza, Topping
 from .forms import CommentForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
@@ -22,7 +23,7 @@ def pizza(request, pizza_id):
     context = {'pizza': pizza, 'toppings':toppings, 'comments':comments}
     return render(request, 'pizzas/pizza.html', context)
 
-
+@login_required
 def new_comment(request, pizza_id):
     pizza = Pizza.objects.get(id = pizza_id)
     if request.method != 'POST':
